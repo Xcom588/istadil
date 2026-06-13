@@ -1,0 +1,130 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  transition: all 0.3s ease;
+}
+
+.header.scrolled {
+  background-color: rgba(10, 10, 10, 0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-bottom-color: rgba(212, 175, 55, 0.2);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.nav-link {
+  color: #e8e8e8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4af37, #ff69b4);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #d4af37;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.cta-button {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #d4af37 0%, #ff69b4 100%);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-menu {
+    gap: 20px;
+    order: 3;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 10px 15px;
+  }
+
+  .nav-menu {
+    gap: 12px;
+  }
+
+  .nav-link {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .cta-button {
+    padding: 8px 16px;
+    font-size: 10px;
+  }
+}

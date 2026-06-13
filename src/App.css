@@ -1,0 +1,16 @@
+.App {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0a0a0a;
+}
+
+/* General smoothness */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ensure consistent spacing */
+main,
+section {
+  width: 100%;
+}
