@@ -1,0 +1,1018 @@
+cat > /mnt/user-data/outputs/istadil-cloudflare/index.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IstaDil — Dil Ki Baat, Duniya Tak</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0518;--bg2:#100820;--card:#140d24;--card2:#1c1230;
+  --border:#251840;--gold:#ffd138;--goldL:#fff0a0;
+  --pink:#f43f7a;--pinkL:#ff80a8;--purple:#8b5cf6;
+  --blue:#3b82f6;--green:#10b981;--red:#ef4444;
+  --text:#f0eaff;--text2:#9d8ec0;--text3:#4a3d6a;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;min-height:100vh;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  background:rgba(10,5,24,0.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  height:60px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 20px;
+}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.logo-icon{
+  position:relative;width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-star{
+  font-size:32px;filter:drop-shadow(0 0 8px rgba(255,209,56,0.6));
+  animation:pulse-star 3s infinite ease-in-out;
+}
+.logo-heart{
+  position:absolute;font-size:14px;
+  filter:drop-shadow(0 0 4px rgba(244,63,122,0.8));
+}
+@keyframes pulse-star{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.logo-text{
+  font-size:20px;font-weight:900;font-style:italic;letter-spacing:-0.5px;
+  background:linear-gradient(135deg,var(--gold),var(--pink),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav-r{display:flex;gap:8px;}
+.nbtn{padding:8px 18px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;border:none;}
+.nbtn-out{background:transparent;border:1px solid var(--border);color:var(--text2);}
+.nbtn-out:hover{border-color:var(--gold);color:var(--gold);}
+.nbtn-pri{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:0 4px 20px rgba(244,63,122,0.3);}
+.nbtn-pri:hover{opacity:0.85;transform:translateY(-1px);}
+
+/* PAGES */
+.page{display:none;padding-top:60px;min-height:100vh;}
+.page.active{display:block;}
+
+/* ═══ LANDING ═══ */
+.hero{
+  min-height:92vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:60px 20px 40px;
+  position:relative;overflow:hidden;
+}
+.hero-glow{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:600px;height:400px;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(139,92,246,0.15) 0%,transparent 65%);
+}
+.hero-glow2{
+  position:absolute;bottom:0;right:0;width:400px;height:300px;
+  background:radial-gradient(ellipse,rgba(244,63,122,0.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);
+  border-radius:20px;padding:5px 14px;font-size:12px;color:var(--purple);
+  margin-bottom:24px;letter-spacing:1px;text-transform:uppercase;font-weight:600;
+}
+.hero h1{
+  font-size:clamp(36px,7vw,72px);font-weight:900;
+  line-height:1.1;margin-bottom:16px;letter-spacing:-1px;
+}
+.hero h1 .g{
+  background:linear-gradient(135deg,var(--gold),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-style:italic;
+}
+.hero p{font-size:16px;color:var(--text2);max-width:480px;line-height:1.7;margin-bottom:36px;}
+.hero-emotion-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.hetype{
+  padding:10px 20px;border-radius:30px;font-size:14px;font-weight:500;
+  border:1px solid var(--border);color:var(--text2);cursor:default;
+  transition:all 0.3s;
+}
+.hetype.w{border-color:rgba(255,209,56,0.3);color:var(--gold);background:rgba(255,209,56,0.05);}
+.hetype.k{border-color:rgba(16,185,129,0.3);color:var(--green);background:rgba(16,185,129,0.05);}
+.hetype.d{border-color:rgba(59,130,246,0.3);color:var(--blue);background:rgba(59,130,246,0.05);}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
+.hbtn-pri{
+  padding:15px 32px;border-radius:30px;font-size:15px;font-weight:700;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  border:none;color:#fff;cursor:pointer;font-family:inherit;
+  box-shadow:0 8px 30px rgba(244,63,122,0.35);transition:all 0.2s;
+}
+.hbtn-pri:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(244,63,122,0.45);}
+.hbtn-out{
+  padding:15px 32px;border-radius:30px;font-size:15px;font-weight:500;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text2);cursor:pointer;font-family:inherit;transition:all 0.2s;
+}
+.hbtn-out:hover{border-color:var(--purple);color:var(--pinkL);}
+
+/* STATS */
+.stats-wrap{
+  display:flex;gap:0;flex-wrap:nowrap;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;max-width:680px;width:100%;
+}
+.stat{flex:1;padding:20px 16px;text-align:center;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-n{
+  font-size:26px;font-weight:800;
+  background:linear-gradient(135deg,var(--gold),var(--pinkL));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-l{font-size:10px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
+
+/* SECTIONS */
+.section{padding:64px 20px;max-width:1000px;margin:0 auto;}
+.sec-head{text-align:center;margin-bottom:48px;}
+.sec-head h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:8px;}
+.sec-head p{color:var(--text2);font-size:14px;}
+.eyebrow{
+  font-size:11px;text-transform:uppercase;letter-spacing:2px;
+  color:var(--pink);font-weight:600;margin-bottom:8px;display:block;
+}
+
+/* FEATURES GRID */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+.feat-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:24px;transition:border-color 0.2s,transform 0.2s;
+}
+.feat-card:hover{border-color:var(--purple);transform:translateY(-2px);}
+.feat-icon{font-size:28px;margin-bottom:14px;}
+.feat-card h3{font-size:15px;font-weight:700;margin-bottom:8px;}
+.feat-card p{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* HOW IT WORKS */
+.how-bg{background:linear-gradient(180deg,transparent,rgba(139,92,246,0.04),transparent);padding:64px 20px;}
+.steps{display:flex;gap:0;justify-content:center;max-width:800px;margin:0 auto;flex-wrap:wrap;}
+.step{flex:1;min-width:180px;text-align:center;padding:20px;position:relative;}
+.step:not(:last-child)::after{
+  content:'→';position:absolute;right:-8px;top:28px;
+  color:var(--text3);font-size:18px;
+}
+@media(max-width:560px){.step:not(:last-child)::after{display:none;}.steps{gap:16px;}}
+.step-num{
+  width:48px;height:48px;border-radius:50%;margin:0 auto 14px;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:800;color:#fff;
+}
+.step h4{font-size:14px;font-weight:700;margin-bottom:6px;}
+.step p{font-size:12px;color:var(--text2);line-height:1.5;}
+
+/* MILI STORIES */
+.mili-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.mili-c{
+  background:var(--card);border:1px solid rgba(255,209,56,0.15);
+  border-radius:18px;padding:20px;
+}
+.mili-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.mili-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.mili-badge{margin-left:auto;background:rgba(255,209,56,0.1);border:1px solid rgba(255,209,56,0.25);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--gold);}
+.mili-txt{font-size:13px;color:var(--text2);line-height:1.6;font-style:italic;}
+.mili-sparks{font-size:11px;color:var(--gold);margin-top:8px;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24px 24px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;max-width:1000px;margin:0 auto 32px;}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.foot-grid{grid-template-columns:1fr;}}
+.foot-brand .logo-text{font-size:18px;}
+.foot-brand p{font-size:12px;color:var(--text3);margin-top:10px;line-height:1.7;max-width:240px;}
+.foot-disc{
+  background:rgba(244,63,122,0.07);border:1px solid rgba(244,63,122,0.15);
+  border-radius:10px;padding:12px 14px;font-size:11px;color:var(--text3);
+  line-height:1.7;margin-top:14px;max-width:280px;
+}
+.foot-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:12px;}
+.foot-col a{display:block;font-size:13px;color:var(--text3);text-decoration:none;margin-bottom:8px;transition:color 0.2s;}
+.foot-col a:hover{color:var(--pinkL);}
+.foot-bottom{
+  border-top:1px solid var(--border);padding-top:20px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  font-size:11px;color:var(--text3);max-width:1000px;margin:0 auto;
+}
+
+/* ═══ APP (Feed) ═══ */
+.user-bar{
+  background:linear-gradient(90deg,rgba(139,92,246,0.12),rgba(244,63,122,0.08));
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+}
+.ub-l{display:flex;align-items:center;gap:10px;}
+.ub-av{
+  width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.ub-name{font-size:13px;font-weight:600;}
+.ub-r{display:flex;align-items:center;gap:12px;}
+.ub-status{font-size:11px;color:var(--text3);}
+.ub-logout{font-size:12px;color:var(--red);cursor:pointer;background:none;border:none;font-family:inherit;}
+
+.tabs{
+  display:flex;gap:4px;padding:10px 14px;
+  border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  padding:7px 14px;border-radius:20px;cursor:pointer;
+  font-size:12px;color:var(--text2);white-space:nowrap;
+  transition:all 0.2s;border:1px solid transparent;font-weight:500;
+}
+.tab.on{background:var(--card2);color:var(--gold);border-color:var(--border);}
+
+/* APP LAYOUT */
+.app-wrap{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 280px;gap:16px;padding:16px 14px;}
+@media(max-width:740px){.app-wrap{grid-template-columns:1fr;}.aside{display:none;}}
+
+/* UNLOCK BANNER */
+.unlock-bar{
+  background:linear-gradient(135deg,rgba(255,209,56,0.08),rgba(139,92,246,0.08));
+  border:1px solid rgba(255,209,56,0.2);border-radius:14px;
+  padding:14px 16px;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.ub-txt{font-size:13px;color:var(--gold);font-weight:600;}
+.ub-txt span{display:block;font-size:11px;color:var(--text2);font-weight:400;margin-top:2px;}
+.ub-go{
+  background:linear-gradient(135deg,var(--gold),var(--pink));
+  border:none;color:#000;padding:8px 16px;border-radius:20px;
+  font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+
+/* CREATE BOX */
+.create-box{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:16px;margin-bottom:14px;
+}
+.type-row{display:flex;gap:7px;margin-bottom:13px;}
+.tsel{
+  flex:1;padding:8px 6px;border-radius:10px;text-align:center;
+  font-size:12px;font-weight:600;border:1px solid var(--border);
+  color:var(--text2);cursor:pointer;transition:all 0.2s;
+  font-family:inherit;background:transparent;
+}
+.tsel.wish.on{background:rgba(255,209,56,0.1);border-color:var(--gold);color:var(--gold);}
+.tsel.khushi.on{background:rgba(16,185,129,0.1);border-color:var(--green);color:var(--green);}
+.tsel.dukh.on{background:rgba(59,130,246,0.1);border-color:var(--blue);color:var(--blue);}
+.create-row{display:flex;gap:10px;}
+.c-av{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.c-ta{
+  flex:1;background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:10px 13px;color:var(--text);
+  font-size:14px;resize:none;outline:none;font-family:inherit;min-height:70px;
+  transition:border-color 0.2s;
+}
+.c-ta:focus{border-color:var(--purple);}
+.c-ta::placeholder{color:var(--text3);}
+.c-bot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px;}
+.chips{display:flex;gap:5px;flex-wrap:wrap;}
+.chip{
+  padding:5px 10px;border-radius:20px;font-size:11px;font-weight:500;
+  border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all 0.2s;
+}
+.chip.on{background:var(--purple);border-color:var(--purple);color:#fff;}
+.chip:hover:not(.on){border-color:var(--purple);color:var(--pinkL);}
+
+/* WISH CARDS */
+.wcard{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:16px;margin-bottom:12px;
+  transition:border-color 0.2s;
+}
+.wcard.wc-wish{border-left:3px solid var(--gold);}
+.wcard.wc-khushi{border-left:3px solid var(--green);}
+.wcard.wc-dukh{border-left:3px solid var(--blue);}
+.wcard.wc-mili{border-left:3px solid var(--gold);border-color:rgba(255,209,56,0.3);}
+.wc-head{display:flex;align-items:center;gap:9px;margin-bottom:11px;}
+.wc-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.av1{background:linear-gradient(135deg,#8b5cf6,#f43f7a);}
+.av2{background:linear-gradient(135deg,#3b82f6,#10b981);}
+.av3{background:linear-gradient(135deg,#ffd138,#f43f7a);}
+.av4{background:linear-gradient(135deg,#10b981,#3b82f6);}
+.av5{background:linear-gradient(135deg,#ef4444,#ffd138);}
+.wc-meta{flex:1;}
+.wc-name{font-size:13px;font-weight:600;}
+.wc-time{font-size:11px;color:var(--text3);}
+.tbadge{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;}
+.t6h{background:rgba(16,185,129,0.15);color:var(--green);}
+.t24h{background:rgba(59,130,246,0.15);color:var(--blue);}
+.t3d{background:rgba(139,92,246,0.15);color:var(--purple);}
+.t1w{background:rgba(244,63,122,0.15);color:var(--pink);}
+.type-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  border-radius:20px;padding:3px 9px;font-size:11px;font-weight:600;margin-bottom:9px;
+}
+.tt-wish{background:rgba(255,209,56,0.1);color:var(--gold);border:1px solid rgba(255,209,56,0.2);}
+.tt-khushi{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2);}
+.tt-dukh{background:rgba(59,130,246,0.1);color:var(--blue);border:1px solid rgba(59,130,246,0.2);}
+.tt-mili{background:rgba(255,209,56,0.1);color:var(--gold);border:1px solid rgba(255,209,56,0.3);}
+.mili-bar{
+  background:rgba(255,209,56,0.06);border:1px solid rgba(255,209,56,0.18);
+  border-radius:9px;padding:8px 12px;margin-bottom:10px;
+  display:flex;align-items:center;gap:7px;font-size:12px;color:var(--gold);
+}
+.wc-txt{font-size:14px;line-height:1.7;margin-bottom:12px;}
+.wc-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.abtn{
+  display:flex;align-items:center;gap:4px;padding:6px 12px;
+  border-radius:20px;font-size:12px;font-weight:500;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text2);cursor:pointer;transition:all 0.2s;font-family:inherit;
+}
+.abtn:hover{background:var(--card2);}
+.abtn.spark.on{background:rgba(255,209,56,0.1);border-color:var(--gold);color:var(--gold);}
+.abtn.spark:hover{border-color:var(--gold);color:var(--gold);}
+.abtn.wh:hover{border-color:var(--purple);color:var(--purple);}
+.abtn.rep:hover{border-color:var(--red);color:var(--red);}
+.locked{border-style:dashed;color:var(--text3);}
+.locked:hover{border-color:var(--gold);color:var(--gold);}
+
+/* EMOTION ROW */
+.erow{display:flex;gap:6px;flex-wrap:wrap;padding:10px;background:var(--bg2);border-radius:10px;margin-top:9px;}
+.epill{padding:6px 11px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--border);cursor:pointer;color:var(--text2);transition:all 0.2s;}
+.epill:hover{transform:scale(1.05);}
+.ep1:hover{background:rgba(59,130,246,0.2);border-color:var(--blue);color:var(--blue);}
+.ep2:hover{background:rgba(255,209,56,0.2);border-color:var(--gold);color:var(--gold);}
+.ep3:hover{background:rgba(16,185,129,0.2);border-color:var(--green);color:var(--green);}
+.ep4:hover{background:rgba(244,63,122,0.2);border-color:var(--pink);color:var(--pink);}
+.ep5:hover{background:rgba(139,92,246,0.2);border-color:var(--purple);color:var(--purple);}
+
+/* SIDEBAR */
+.aside{display:flex;flex-direction:column;gap:14px;}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;}
+.sc-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:12px;}
+.trend-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);}
+.trend-item:last-child{border-bottom:none;}
+.trend-txt{font-size:12px;color:var(--text2);}
+.trend-spark{font-size:11px;color:var(--gold);margin-top:2px;}
+.mili-s{padding:8px 0;border-bottom:1px solid var(--border);}
+.mili-s:last-child{border-bottom:none;}
+.mili-s-txt{font-size:12px;color:var(--text2);line-height:1.5;}
+.mili-s-tag{font-size:11px;color:var(--gold);margin-top:3px;}
+.premium-box{
+  background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(244,63,122,0.12));
+  border:1px solid rgba(139,92,246,0.3);border-radius:16px;padding:16px;text-align:center;
+}
+.premium-box h3{font-size:14px;font-weight:700;margin-bottom:5px;}
+.premium-box p{font-size:11px;color:var(--text2);margin-bottom:11px;line-height:1.5;}
+.pf-list{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;text-align:left;}
+.pf{font-size:11px;color:var(--text2);}
+.pf em{color:var(--gold);font-style:normal;}
+
+/* ═══ MODALS ═══ */
+.mo{
+  position:fixed;inset:0;background:rgba(0,0,0,0.82);
+  backdrop-filter:blur(8px);display:flex;align-items:center;
+  justify-content:center;z-index:500;padding:16px;
+}
+.mb{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:22px;padding:26px;width:100%;max-width:400px;
+  max-height:90vh;overflow-y:auto;
+}
+.mb h3{font-size:18px;font-weight:800;margin-bottom:5px;}
+.mb .msub{font-size:12px;color:var(--text2);margin-bottom:18px;}
+.inp{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:11px 13px;color:var(--text);
+  font-size:13px;outline:none;margin-bottom:10px;
+  font-family:inherit;transition:border-color 0.2s;
+}
+.inp:focus{border-color:var(--purple);}
+.inp::placeholder{color:var(--text3);}
+.m-btns{display:flex;gap:8px;margin-top:6px;}
+.m-cancel{flex:1;padding:11px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-family:inherit;font-size:13px;}
+.m-submit{flex:2;padding:11px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;}
+
+/* T&C */
+.tnc-scroll{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px;max-height:200px;overflow-y:auto;}
+.tnc-scroll p{font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:10px;}
+.tnc-scroll p:last-child{margin-bottom:0;}
+.tnc-en{font-size:11px;color:var(--text3);font-style:italic;}
+.tnc-check{display:flex;align-items:flex-start;gap:9px;margin-bottom:16px;}
+.tnc-check input{margin-top:3px;accent-color:var(--purple);width:15px;height:15px;flex-shrink:0;cursor:pointer;}
+.tnc-check label{font-size:12px;color:var(--text2);line-height:1.5;cursor:pointer;}
+
+/* WISH FIRST */
+.wf-center{text-align:center;padding:8px 0;}
+.wf-icon{font-size:44px;margin-bottom:14px;}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:30px;padding:10px 22px;font-size:13px;
+  z-index:600;opacity:0;transition:opacity 0.3s;
+  pointer-events:none;white-space:nowrap;font-weight:500;
+}
+.toast.show{opacity:1;}
+
+/* AD BANNER */
+.ad-banner{
+  background:linear-gradient(135deg,rgba(255,209,56,0.08),rgba(244,63,122,0.08));
+  border:1px solid rgba(255,209,56,0.2);border-radius:14px;
+  padding:14px 18px;margin-bottom:14px;text-align:center;
+  font-size:13px;color:var(--text2);display:none;
+}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+@media(max-width:480px){
+  .stats-wrap{flex-wrap:wrap;}
+  .stat{min-width:50%;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#" onclick="goLanding()">
+    <div class="logo-icon">
+      <span class="logo-star">⭐</span>
+      <span class="logo-heart">❤️</span>
+    </div>
+    <span class="logo-text">IstaDil</span>
+  </a>
+  <div class="nav-r" id="navR">
+    <button class="nbtn nbtn-out" onclick="showMo('loginMo')">Login</button>
+    <button class="nbtn nbtn-pri" onclick="showMo('regMo')">Join Free ✨</button>
+  </div>
+</nav>
+
+<!-- ═══ PAGE: LANDING ═══ -->
+<div id="pg-landing" class="page active">
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-badge">🇮🇳 India का Emotional Platform</div>
+    <h1>Dil Ki Baat,<br><span class="g">IstaDil Ke Saath</span></h1>
+    <p>Wish करो, खुशी बाँटो, दुख हल्का करो।<br>Strangers की Sparks और Duaen तुम्हारे साथ हैं।</p>
+    <div class="hero-emotion-row">
+      <div class="hetype w">🌟 Wish Karo</div>
+      <div class="hetype k">😊 Khushi Baanto</div>
+      <div class="hetype d">💙 Dukh Halka Karo</div>
+    </div>
+    <div class="hero-btns">
+      <button class="hbtn-pri" onclick="showMo('regMo')">Abhi Join Karo — Free ✨</button>
+      <button class="hbtn-out" onclick="showMo('loginMo')">Login Karo</button>
+    </div>
+    <div class="stats-wrap">
+      <div class="stat"><div class="stat-n" id="s1">0</div><div class="stat-l">Dil Jude Hai</div></div>
+      <div class="stat"><div class="stat-n" id="s2">0</div><div class="stat-l">Wishes Shared</div></div>
+      <div class="stat"><div class="stat-n" id="s3">0</div><div class="stat-l">⭐ Mili Wishes</div></div>
+      <div class="stat"><div class="stat-n" id="s4">0</div><div class="stat-l">✨ Sparks</div></div>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="sec-head">
+      <span class="eyebrow">Why IstaDil?</span>
+      <h2>हर Emotion का घर</h2>
+      <p>एक platform जहाँ दिल की बात सुनी जाती है</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon">🌟</div><h3>Wish Karo</h3><p>दिल की इच्छा share करो। Community की Sparks और Duaen तुम्हारे साथ हैं।</p></div>
+      <div class="feat-card"><div class="feat-icon">😊</div><h3>Khushi Baanto</h3><p>Job मिली? Result आया? अपनी खुशी हज़ारों लोगों तक पहुँचाओ।</p></div>
+      <div class="feat-card"><div class="feat-icon">💙</div><h3>Dukh Halka Karo</h3><p>कभी-कभी बस कोई सुन ले — वही काफी होता है। Strangers से connect करो।</p></div>
+      <div class="feat-card"><div class="feat-icon">⭐</div><h3>Mili Section</h3><p>Wish पूरी हो जाए तो ⭐ Mili mark करो। दूसरों को inspire करो।</p></div>
+      <div class="feat-card"><div class="feat-icon">⏱️</div><h3>Time-Bound Posts</h3><p>6 घंटे से 1 हफ्ते तक। Fresh wishes, हमेशा नई energy।</p></div>
+      <div class="feat-card"><div class="feat-icon">🔒</div><h3>Safe Platform</h3><p>Report system और community guidelines से सुरक्षित माहौल।</p></div>
+    </div>
+  </div>
+
+  <div class="how-bg">
+    <div style="max-width:800px;margin:0 auto;">
+      <div class="sec-head">
+        <span class="eyebrow">Process</span>
+        <h2>कैसे काम करता है?</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><h4>Join Karo</h4><p>Free account बनाओ</p></div>
+        <div class="step"><div class="step-num">2</div><h4>Share Karo</h4><p>Wish, Khushi ya Dukh likho</p></div>
+        <div class="step"><div class="step-num">3</div><h4>Connect Ho</h4><p>Sparks do, Duaen pao</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head">
+      <span class="eyebrow">Real Stories</span>
+      <h2>⭐ Mili Stories</h2>
+      <p>इन लोगों की wishes पूरी हुईं</p>
+    </div>
+    <div class="mili-grid">
+      <div class="mili-c">
+        <div class="mili-top"><div class="mili-av av1">🌸</div><div><div style="font-size:13px;font-weight:600">Sneha K.</div><div style="font-size:11px;color:var(--text3)">Delhi</div></div><div class="mili-badge">⭐ Mili!</div></div>
+        <div class="mili-txt">"UPSC Prelims clear ho gayi! 3 saal ki mehnat rang layi. IstaDil community ka shukriya."</div>
+        <div class="mili-sparks">✨ 1,247 Sparks · 🤲 892 Duaen</div>
+      </div>
+      <div class="mili-c">
+        <div class="mili-top"><div class="mili-av av2">🌊</div><div><div style="font-size:13px;font-weight:600">Vikram S.</div><div style="font-size:11px;color:var(--text3)">Pune</div></div><div class="mili-badge">⭐ Mili!</div></div>
+        <div class="mili-txt">"GATE crack kar liya! 847 logon ne spark diya — akela feel nahi hua kabhi."</div>
+        <div class="mili-sparks">✨ 847 Sparks · 🤲 623 Duaen</div>
+      </div>
+      <div class="mili-c">
+        <div class="mili-top"><div class="mili-av av3">⭐</div><div><div style="font-size:13px;font-weight:600">Meera P.</div><div style="font-size:11px;color:var(--text3)">Mumbai</div></div><div class="mili-badge">⭐ Mili!</div></div>
+        <div class="mili-txt">"Baby girl aayi ghar mein 🎀 Iss community ki duaen mere saath thi."</div>
+        <div class="mili-sparks">✨ 2,103 Sparks · 🤲 1,847 Duaen</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><div class="logo-icon"><span class="logo-star" style="font-size:24px">⭐</span><span class="logo-heart" style="font-size:10px">❤️</span></div><span class="logo-text">IstaDil</span></div>
+        <p>दिल की बात, दुनिया तक।<br>India का emotional wish platform।</p>
+        <div class="foot-disc">⚠️ IstaDil एक community platform है। यहाँ share की गई कोई भी wish, dua या spark किसी भी प्रकार की guarantee नहीं है। IstaDil किसी भी धर्म या संस्था से जुड़ा नहीं है।<br><br><em style="font-style:italic">IstaDil is a social platform. Nothing shared here constitutes a guarantee. No religious affiliation.</em></div>
+      </div>
+      <div class="foot-col">
+        <h4>Platform</h4>
+        <a href="#">Feed</a><a href="#">Trending</a><a href="#">Mili Stories</a><a href="#">Premium</a>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Guidelines</a><a href="#">Disclaimer</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a id="footSupport" href="mailto:support@istadil.app">support@istadil.app</a>
+        <a id="footBusiness" href="mailto:hello@istadil.app">hello@istadil.app</a>
+        <p style="font-size:11px;color:var(--text3);margin-top:8px">Response: 24-48 hours</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025 IstaDil. All rights reserved.</span>
+      <span>Made with ❤️ in India 🇮🇳</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══ PAGE: FEED ═══ -->
+<div id="pg-feed" class="page">
+  <div class="user-bar">
+    <div class="ub-l">
+      <div class="ub-av" id="userAv">🌟</div>
+      <div class="ub-name" id="userName">User</div>
+    </div>
+    <div class="ub-r">
+      <span class="ub-status" id="wishStatus">⚠️ पहले Wish बनाओ</span>
+      <button class="ub-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" onclick="setTab(this)">✨ सभी</div>
+    <div class="tab" onclick="setTab(this)">🌟 Wishes</div>
+    <div class="tab" onclick="setTab(this)">😊 Khushiyan</div>
+    <div class="tab" onclick="setTab(this)">💙 Dukh</div>
+    <div class="tab" onclick="setTab(this)">🔥 Trending</div>
+    <div class="tab" onclick="setTab(this)">⭐ Mili</div>
+  </div>
+
+  <div class="app-wrap">
+    <div class="feed-col">
+      <div class="ad-banner" id="adBanner"></div>
+
+      <div class="unlock-bar" id="unlockBar">
+        <div class="ub-txt">🔒 React और Whisper के लिए पहले Wish बनाओ
+          <span>एक बार — फिर सब unlock</span>
+        </div>
+        <button class="ub-go" onclick="scrollCreate()">Wish बनाओ ↓</button>
+      </div>
+
+      <div class="create-box" id="createBox">
+        <div class="type-row">
+          <button class="tsel wish on" onclick="selType(this,'wish')">🌟 Wish</button>
+          <button class="tsel khushi" onclick="selType(this,'khushi')">😊 Khushi</button>
+          <button class="tsel dukh" onclick="selType(this,'dukh')">💙 Dukh</button>
+        </div>
+        <div class="create-row">
+          <div class="c-av">🌟</div>
+          <textarea class="c-ta" id="wishTa" placeholder="अपनी Wish लिखो... 💫"></textarea>
+        </div>
+        <div class="c-bot">
+          <div class="chips">
+            <div class="chip on" onclick="selChip(this)">⚡ 6h</div>
+            <div class="chip" onclick="selChip(this)">🌙 24h</div>
+            <div class="chip" onclick="selChip(this)">📅 3 दिन</div>
+            <div class="chip" onclick="selChip(this)">🗓️ 1 हफ्ता</div>
+            <div class="chip" onclick="lockChip()">♾️ 🔒</div>
+          </div>
+          <button class="nbtn nbtn-pri" onclick="postWish()" style="padding:8px 18px;font-size:13px">Share करो ✨</button>
+        </div>
+      </div>
+
+      <div id="wishFeed">
+        <div class="wcard wc-wish">
+          <div class="wc-head">
+            <div class="wc-av av1">🌸</div>
+            <div class="wc-meta"><div class="wc-name">Priya S.</div><div class="wc-time">2 घंटे पहले</div></div>
+            <span class="tbadge t6h">⚡ 4h बचे</span>
+          </div>
+          <div class="type-tag tt-wish">🌟 Wish</div>
+          <p class="wc-txt">मेरा आज का interview अच्छा जाए। 3 महीने की तैयारी है। 🙏</p>
+          <div class="wc-actions">
+            <button class="abtn spark on">✨ Spark <span>142</span></button>
+            <button class="abtn wh locked" onclick="needWish()">💬 Whisper 🔒</button>
+            <button class="abtn rep" onclick="toast('🚩 Report किया')">🚩</button>
+          </div>
+        </div>
+
+        <div class="wcard wc-dukh">
+          <div class="wc-head">
+            <div class="wc-av av2">🌊</div>
+            <div class="wc-meta"><div class="wc-name">Arjun M.</div><div class="wc-time">5 घंटे पहले</div></div>
+            <span class="tbadge t24h">🌙 19h बचे</span>
+          </div>
+          <div class="type-tag tt-dukh">💙 Dukh</div>
+          <p class="wc-txt">Papa ki health theek nahi hai. Koi dua do please. 💙</p>
+          <div class="wc-actions">
+            <button class="abtn spark" onclick="doSpark(this)">✨ Spark <span>89</span></button>
+            <button class="abtn wh locked" onclick="needWish()">💬 Whisper 🔒</button>
+            <button class="abtn rep" onclick="toast('🚩 Report किया')">🚩</button>
+          </div>
+        </div>
+
+        <div class="wcard wc-mili">
+          <div class="wc-head">
+            <div class="wc-av av3">⭐</div>
+            <div class="wc-meta"><div class="wc-name">Sneha K.</div><div class="wc-time">2 दिन पहले</div></div>
+            <div class="type-tag tt-mili">⭐ Mili!</div>
+          </div>
+          <div class="mili-bar">🎉 Sneha की Wish पूरी हो गई!</div>
+          <p class="wc-txt">UPSC Prelims clear ho jaye. 3 saal ki mehnat. 🙏</p>
+          <div class="wc-actions">
+            <button class="abtn spark on">✨ Spark <span>1.2k</span></button>
+            <button class="abtn wh locked" onclick="needWish()">💬 Whisper 🔒</button>
+          </div>
+        </div>
+
+        <div class="wcard wc-khushi">
+          <div class="wc-head">
+            <div class="wc-av av4">🌿</div>
+            <div class="wc-meta"><div class="wc-name">Kavya R.</div><div class="wc-time">3 घंटे पहले</div></div>
+            <span class="tbadge t3d">📅 2d बचे</span>
+          </div>
+          <div class="type-tag tt-khushi">😊 Khushi</div>
+          <p class="wc-txt">Aaj placement mili! 5 LPA! Maa-Papa ki mehnat rang layi. 🎉</p>
+          <div class="wc-actions">
+            <button class="abtn spark" onclick="doSpark(this)">✨ Spark <span>312</span></button>
+            <button class="abtn wh locked" onclick="needWish()">💬 Whisper 🔒</button>
+            <button class="abtn rep" onclick="toast('🚩 Report किया')">🚩</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aside">
+      <div class="sc">
+        <div class="sc-title">🔥 Trending</div>
+        <div class="trend-item"><span style="font-size:18px">🎓</span><div><div class="trend-txt">Exam results ache aaye</div><div class="trend-spark">✨ 4.2k Sparks</div></div></div>
+        <div class="trend-item"><span style="font-size:18px">💼</span><div><div class="trend-txt">Job mil jaye</div><div class="trend-spark">✨ 3.8k Sparks</div></div></div>
+        <div class="trend-item"><span style="font-size:18px">💊</span><div><div class="trend-txt">Family theek rahe</div><div class="trend-spark">✨ 2.9k Sparks</div></div></div>
+        <div class="trend-item"><span style="font-size:18px">💔</span><div><div class="trend-txt">Dil ka dard halka ho</div><div class="trend-spark">✨ 2.4k Sparks</div></div></div>
+      </div>
+      <div class="sc">
+        <div class="sc-title">⭐ Mili Stories</div>
+        <div class="mili-s"><div class="mili-s-txt">"GATE clear! 847 logon ki duaon ka shukriya" — Vikram</div><div class="mili-s-tag">⭐ 3 din pehle</div></div>
+        <div class="mili-s"><div class="mili-s-txt">"Baby girl aayi 🎀" — Meera</div><div class="mili-s-tag">⭐ 1 hafte pehle</div></div>
+        <div class="mili-s"><div class="mili-s-txt">"Canada visa approved!" — Aditya</div><div class="mili-s-tag">⭐ 2 hafte pehle</div></div>
+      </div>
+      <div class="premium-box">
+        <h3>⭐ IstaDil Premium</h3>
+        <p>Forever wishes aur Golden badge pao</p>
+        <div class="pf-list">
+          <div class="pf"><em>♾️</em> Forever wishes</div>
+          <div class="pf"><em>🚫</em> No ads</div>
+          <div class="pf"><em>⭐</em> Golden badge</div>
+          <div class="pf"><em>💬</em> Unlimited whispers</div>
+        </div>
+        <button class="nbtn nbtn-pri" style="width:100%;padding:9px;font-size:12px" onclick="toast('Premium jald aa raha hai!')">₹49/month — Coming Soon</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+<div class="mo" id="loginMo" style="display:none">
+  <div class="mb">
+    <h3>🌟 Wapas Aao</h3>
+    <div class="msub">IstaDil par apni wishes dekho</div>
+    <input class="inp" type="email" id="loginEmail" placeholder="Email">
+    <input class="inp" type="password" id="loginPass" placeholder="Password">
+    <div class="m-btns">
+      <button class="m-cancel" onclick="closeMo('loginMo')">Cancel</button>
+      <button class="m-submit" onclick="showTnC('login')">Login ✨</button>
+    </div>
+  </div>
+</div>
+
+<div class="mo" id="regMo" style="display:none">
+  <div class="mb">
+    <h3>⭐ IstaDil Se Judo</h3>
+    <div class="msub">Dil ki baat kaho, strangers ki duaen pao</div>
+    <input class="inp" type="text" id="regName" placeholder="Aapka naam">
+    <input class="inp" type="email" id="regEmail" placeholder="Email">
+    <input class="inp" type="password" id="regPass" placeholder="Password banao">
+    <div class="m-btns">
+      <button class="m-cancel" onclick="closeMo('regMo')">Cancel</button>
+      <button class="m-submit" onclick="showTnC('reg')">Join Karo ✨</button>
+    </div>
+  </div>
+</div>
+
+<div class="mo" id="tncMo" style="display:none">
+  <div class="mb">
+    <h3>📋 Terms & Conditions</h3>
+    <div class="msub">IstaDil use करने से पहले पढ़ें</div>
+    <div class="tnc-scroll">
+      <p><strong>1. Platform की प्रकृति:</strong> IstaDil एक community-based social platform है जहाँ users अपनी wishes, खुशियाँ और दुख share कर सकते हैं।</p>
+      <p><strong>2. कोई Guarantee नहीं:</strong> IstaDil पर share की गई किसी भी wish के पूरे होने की कोई guarantee नहीं है। यह platform किसी भी supernatural claim को support नहीं करता।</p>
+      <p><strong>3. वास्तविकता से कोई संबंध नहीं:</strong> यहाँ share की गई सामग्री की वास्तविकता से IstaDil की कोई जिम्मेदारी नहीं है।</p>
+      <p><strong>4. धर्म-निरपेक्ष:</strong> IstaDil किसी भी धर्म, संस्था या organization से जुड़ा नहीं है।</p>
+      <p><strong>5. Community Rules:</strong> Spam, hate speech, या inappropriate content प्रतिबंधित है।</p>
+      <p class="tnc-en">IstaDil is a social platform. Nothing shared here constitutes a guarantee or supernatural claim. IstaDil bears no responsibility for user content and has no religious affiliation.</p>
+    </div>
+    <div class="tnc-check">
+      <input type="checkbox" id="tncCb" onchange="toggleTnc()">
+      <label for="tncCb">मैंने सब पढ़ा और मैं सहमत हूँ।<br><span style="font-size:11px;color:var(--text3)">I have read and agree to all Terms.</span></label>
+    </div>
+    <div class="m-btns">
+      <button class="m-cancel" onclick="closeMo('tncMo')">Cancel</button>
+      <button class="m-submit" id="tncBtn" style="opacity:0.4" onclick="doAgree()">Agree & Enter ✨</button>
+    </div>
+  </div>
+</div>
+
+<div class="mo" id="wishFirstMo" style="display:none">
+  <div class="mb">
+    <div class="wf-center">
+      <div class="wf-icon">🔒✨</div>
+      <h3>पहले Wish बनाओ!</h3>
+      <div class="msub" style="margin-bottom:18px">React और Whisper के लिए पहले अपनी एक Wish, Khushi या Dukh share करो।<br><br>पहले दो, फिर पाओ। 💛</div>
+      <button class="m-submit" style="width:100%;padding:12px" onclick="closeMo('wishFirstMo');scrollCreate()">Wish बनाओ ✨</button>
+      <button class="m-cancel" style="width:100%;padding:10px;margin-top:8px" onclick="closeMo('wishFirstMo')">बाद में</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script>
+var supabase_client = null;
+var currentUser = null;
+var wishMade = false;
+var tncFor = '';
+
+// Init Supabase
+try {
+  supabase_client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch(e) {
+  console.log('Supabase config missing - running in demo mode');
+}
+
+// Pages
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goLanding() { if(!currentUser) showPage('landing'); }
+
+// Modals
+function showMo(id) { document.getElementById(id).style.display='flex'; }
+function closeMo(id) { document.getElementById(id).style.display='none'; }
+
+// T&C
+function showTnC(type) {
+  tncFor = type;
+  closeMo(type==='login' ? 'loginMo' : 'regMo');
+  document.getElementById('tncCb').checked = false;
+  document.getElementById('tncBtn').style.opacity = '0.4';
+  showMo('tncMo');
+}
+function toggleTnc() {
+  document.getElementById('tncBtn').style.opacity =
+    document.getElementById('tncCb').checked ? '1' : '0.4';
+}
+function doAgree() {
+  if(!document.getElementById('tncCb').checked) { toast('⚠️ पहले Terms agree करो'); return; }
+  closeMo('tncMo');
+  if(tncFor === 'login') doLogin();
+  else doRegister();
+}
+
+// Auth
+async function doLogin() {
+  var email = document.getElementById('loginEmail').value;
+  var pass = document.getElementById('loginPass').value;
+  if(!email || !pass) { toast('⚠️ Email aur password dalo'); return; }
+  if(supabase_client) {
+    var {data,error} = await supabase_client.auth.signInWithPassword({email,password:pass});
+    if(error) { toast('❌ '+error.message); return; }
+    setLoggedIn(data.user.email.split('@')[0]);
+  } else {
+    setLoggedIn(email.split('@')[0]);
+  }
+}
+async function doRegister() {
+  var name = document.getElementById('regName').value || 'User';
+  var email = document.getElementById('regEmail').value;
+  var pass = document.getElementById('regPass').value;
+  if(!email || !pass) { toast('⚠️ Sab fields bharo'); return; }
+  if(supabase_client) {
+    var {data,error} = await supabase_client.auth.signUp({email,password:pass,options:{data:{name}}});
+    if(error) { toast('❌ '+error.message); return; }
+  }
+  setLoggedIn(name);
+}
+function setLoggedIn(name) {
+  currentUser = name;
+  document.getElementById('userName').textContent = name+' 👋';
+  document.getElementById('navR').innerHTML =
+    '<span style="font-size:13px;color:var(--text2)">'+name+'</span>';
+  showPage('feed');
+  loadSettings();
+  toast('🎉 IstaDil mein swagat hai, '+name+'!');
+}
+function doLogout() {
+  if(supabase_client) supabase_client.auth.signOut();
+  currentUser = null; wishMade = false;
+  document.getElementById('navR').innerHTML =
+    '<button class="nbtn nbtn-out" onclick="showMo(\'loginMo\')">Login</button>'+
+    '<button class="nbtn nbtn-pri" onclick="showMo(\'regMo\')">Join Free ✨</button>';
+  showPage('landing');
+  toast('Logout ho gaye');
+}
+
+// Settings from Supabase
+async function loadSettings() {
+  if(!supabase_client) return;
+  var {data} = await supabase_client.from('site_settings').select('*');
+  if(!data) return;
+  var s = {};
+  data.forEach(r => s[r.key] = r.value);
+  if(s.support_email) {
+    document.getElementById('footSupport').href = 'mailto:'+s.support_email;
+    document.getElementById('footSupport').textContent = s.support_email;
+  }
+  if(s.business_email) {
+    document.getElementById('footBusiness').href = 'mailto:'+s.business_email;
+    document.getElementById('footBusiness').textContent = s.business_email;
+  }
+  if(s.ad_banner_active === 'true' && s.ad_banner_text) {
+    var ab = document.getElementById('adBanner');
+    ab.textContent = s.ad_banner_text;
+    ab.style.display = 'block';
+  }
+  if(s.primary_color) document.documentElement.style.setProperty('--purple', s.primary_color);
+  if(s.gold_color) document.documentElement.style.setProperty('--gold', s.gold_color);
+}
+
+// Tabs
+function setTab(el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// Create post
+function selType(el, type) {
+  document.querySelectorAll('.tsel').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  var ph = {wish:'अपनी Wish लिखो... 💫',khushi:'खुशी share करो! 🎉',dukh:'दिल का बोझ हल्का करो... 💙'};
+  document.getElementById('wishTa').placeholder = ph[type];
+}
+function selChip(el) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+function lockChip() { toast('♾️ Forever — Premium feature!'); }
+
+async function postWish() {
+  var ta = document.getElementById('wishTa');
+  if(!ta.value.trim()) { toast('⚠️ Kuch likho pehle!'); return; }
+  var type = document.querySelector('.tsel.on').classList[1];
+  var chip = document.querySelector('.chip.on').textContent;
+  if(supabase_client && currentUser) {
+    var {data:userData} = await supabase_client.auth.getUser();
+    if(userData?.user) {
+      var exp = new Date();
+      var dur = chip.includes('6h')?6:chip.includes('24h')?24:chip.includes('3')?72:168;
+      exp.setHours(exp.getHours()+dur);
+      await supabase_client.from('wishes').insert({
+        user_id: userData.user.id,
+        type, content: ta.value,
+        duration: chip, expires_at: exp.toISOString()
+      });
+    }
+  }
+  wishMade = true;
+  ta.value = '';
+  unlockReactions();
+  toast('✨ Share ho gayi! Ab sab unlock hai! 🎉');
+}
+
+function unlockReactions() {
+  document.querySelectorAll('.locked').forEach(b => {
+    b.classList.remove('locked');
+    b.classList.add('wh');
+    b.innerHTML = b.innerHTML.replace(' 🔒','');
+    b.onclick = function(){ toggleWh(this); };
+  });
+  document.getElementById('unlockBar').style.display = 'none';
+  document.getElementById('wishStatus').textContent = '✅ Sab Unlock!';
+  document.getElementById('wishStatus').style.color = 'var(--green)';
+}
+
+function needWish() { if(!wishMade) showMo('wishFirstMo'); }
+function scrollCreate() {
+  document.getElementById('createBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// Spark
+function doSpark(btn) {
+  var sp = btn.querySelector('span');
+  var n = parseInt(sp.textContent.replace('k','').replace('.',''))||0;
+  if(btn.classList.contains('on')) {
+    btn.classList.remove('on'); sp.textContent=n-1; toast('Spark wapas liya');
+  } else {
+    btn.classList.add('on'); sp.textContent=n+1; toast('✨ Spark diya!');
+  }
+}
+
+// Whisper
+function toggleWh(btn) {
+  var card = btn.closest('.wcard');
+  var row = card.querySelector('.erow');
+  if(row) { row.remove(); return; }
+  var nr = document.createElement('div');
+  nr.className = 'erow'; nr.style.marginTop = '9px';
+  nr.innerHTML = `
+    <div class="epill ep1" onclick="toast('🤲 Dua di!')">🤲 Dua do</div>
+    <div class="epill ep2" onclick="toast('✨ Spark bheja!')">✨ Spark</div>
+    <div class="epill ep3" onclick="toast('💙 Ehsaas!')">💙 Ehsaas</div>
+    <div class="epill ep4" onclick="toast('😊 Jashn!')">😊 Jashn</div>
+    <div class="epill ep5" onclick="toast('💪 Hausla!')">💪 Hausla</div>`;
+  card.appendChild(nr);
+}
+
+// Toast
+function toast(msg) {
+  var t = document.getElementById('toastEl');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// Close modal on overlay
+document.querySelectorAll('.mo').forEach(m => {
+  m.addEventListener('click', e => { if(e.target===m) m.style.display='none'; });
+});
+
+// Animate stats
+function animNum(id, target, suffix) {
+  var el = document.getElementById(id), cur = 0;
+  var step = Math.ceil(target/60);
+  var t = setInterval(() => {
+    cur = Math.min(cur+step, target);
+    el.textContent = cur.toLocaleString('en-IN') + (suffix||'');
+    if(cur >= target) clearInterval(t);
+  }, 25);
+}
+window.addEventListener('load', () => {
+  animNum('s1',12847,''); animNum('s2',38291,'');
+  animNum('s3',4203,''); animNum('s4',21,'L+');
+});
+
+// Check existing session
+if(supabase_client) {
+  supabase_client.auth.getSession().then(({data:{session}}) => {
+    if(session) {
+      var name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+      setLoggedIn(name);
+    }
+  });
+}
+</script>
+</body>
+</html>
+HTMLEOF
+echo "index done"
