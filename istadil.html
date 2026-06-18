@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IstaDil — Dil Ki Baat, Duniya Tak</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0518;
+  --gold:#ffd138;
+  --gold2:#fcc419;
+  --pink:#ec4899;
+  --rose:#e11d48;
+  --blue:#3b82f6;
+  --green:#22c55e;
+  --text:#ffffff;
+  --text2:#9ca3af;
+  --text3:#4b5563;
+  --card:#1a1a3a;
+  --border:rgba(255,255,255,0.1);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;}
+.serif{font-family:'Playfair Display',serif;}
+
+/* NAV */
+nav{
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;border-bottom:1px solid var(--border);
+  background:rgba(10,5,24,0.85);backdrop-filter:blur(16px);
+  position:fixed;top:0;left:0;right:0;z-index:100;
+}
+.logo{
+  font-size:20px;font-weight:900;letter-spacing:-0.5px;
+  background:linear-gradient(135deg,var(--pink),var(--gold),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:flex;align-items:center;gap:8px;
+}
+.logo-icon{
+  width:32px;height:32px;border-radius:10px;
+  background:linear-gradient(135deg,var(--pink),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;-webkit-text-fill-color:initial;
+}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a,.nav-links button{
+  font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);background:none;border:none;cursor:pointer;
+  transition:color 0.2s;text-decoration:none;
+}
+.nav-links a:hover,.nav-links button:hover{color:rgba(255,255,255,1);}
+.nav-links .active{color:var(--gold);}
+.nav-btn{
+  padding:8px 20px;border-radius:30px;
+  border:1px solid rgba(236,72,153,0.3);
+  background:rgba(236,72,153,0.1);
+  color:#f9a8d4;font-size:10px;font-weight:700;
+  letter-spacing:0.15em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;font-family:inherit;
+}
+.nav-btn:hover{background:rgba(236,72,153,0.2);}
+@media(max-width:768px){.nav-links{display:none;}}
+
+/* LANDING */
+#landing{padding-top:64px;}
+.hero-grid{
+  display:grid;grid-template-columns:60% 40%;
+  min-height:calc(100vh - 64px);
+}
+@media(max-width:768px){.hero-grid{grid-template-columns:1fr;}}
+
+.hero-left{
+  padding:64px;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.hero-left::before{
+  content:'';position:absolute;top:80px;right:40px;
+  width:256px;height:256px;
+  background:rgba(236,72,153,0.05);border-radius:50%;
+  filter:blur(64px);pointer-events:none;
+}
+@media(max-width:768px){.hero-left{padding:32px 24px;}}
+
+.pulse-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:30px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:32px;
+}
+.pulse-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+.editorial-h1{
+  font-size:clamp(48px,8vw,96px);font-weight:900;
+  line-height:0.88;letter-spacing:-0.03em;
+  margin-bottom:32px;
+}
+.grad-text{
+  background:linear-gradient(135deg,var(--pink),var(--gold),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.hero-desc{
+  font-size:18px;color:var(--text2);max-width:420px;
+  line-height:1.7;font-weight:300;margin-bottom:40px;
+}
+.hero-desc em{color:white;font-weight:500;}
+
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:64px;}
+.btn-main{
+  padding:16px 32px;border-radius:14px;
+  background:linear-gradient(135deg,var(--pink),var(--rose));
+  border:none;color:white;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:inherit;
+  box-shadow:0 8px 30px rgba(236,72,153,0.25);
+  transition:transform 0.2s;
+}
+.btn-main:hover{transform:scale(1.03);}
+.btn-sec{
+  padding:16px 32px;border-radius:14px;
+  border:1px solid var(--border);background:transparent;
+  color:white;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:all 0.2s;
+}
+.btn-sec:hover{background:rgba(255,255,255,0.05);}
+
+/* FEATURED STORY */
+.featured-story{
+  background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);
+  border:1px solid rgba(255,255,255,0.06);border-radius:24px;
+  padding:1px;max-width:520px;
+}
+.featured-inner{
+  background:var(--bg);border-radius:23px;padding:24px;
+  display:flex;gap:24px;align-items:center;
+}
+.feat-icon{
+  width:96px;height:96px;border-radius:18px;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:40px;flex-shrink:0;
+}
+.feat-label{
+  font-size:10px;font-weight:700;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+  display:block;margin-bottom:8px;font-style:italic;
+  font-family:'Playfair Display',serif;
+}
+.feat-title{
+  font-size:18px;font-weight:700;margin-bottom:6px;
+  font-style:italic;font-family:'Playfair Display',serif;
+}
+.feat-desc{font-size:13px;color:var(--text2);}
+
+/* HERO RIGHT */
+.hero-right{
+  background:rgba(0,0,0,0.2);padding:48px 40px;
+  display:flex;flex-direction:column;gap:40px;
+}
+.eco-title{font-size:10px;font-weight:900;letter-spacing:0.3em;text-transform:uppercase;color:var(--text3);}
+.eco-sub{font-size:13px;color:var(--text2);font-weight:300;margin-top:6px;}
+
+.feat-grid{display:flex;flex-direction:column;gap:24px;}
+.feat-item{display:flex;gap:16px;align-items:flex-start;}
+.feat-ico{
+  width:40px;height:40px;border-radius:14px;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;transition:border-color 0.2s;
+}
+.feat-item:hover .feat-ico{border-color:rgba(255,209,56,0.4);}
+.feat-item h4{font-size:13px;font-weight:700;margin-bottom:4px;}
+.feat-item p{font-size:11px;color:var(--text3);line-height:1.6;max-width:220px;}
+
+.premium-plug{
+  margin-top:auto;padding:24px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,209,56,0.08),rgba(236,72,153,0.08),transparent);
+  border:1px solid rgba(255,255,255,0.05);text-align:center;
+}
+.premium-plug .plabel{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:rgba(255,209,56,0.7);margin-bottom:6px;}
+.premium-plug p{font-size:13px;font-style:italic;font-family:'Playfair Display',serif;}
+.premium-plug button{
+  margin-top:14px;font-size:11px;font-weight:700;color:white;
+  background:none;border:none;border-bottom:1px solid rgba(255,255,255,0.2);
+  padding-bottom:4px;cursor:pointer;font-family:inherit;
+  letter-spacing:0.1em;transition:border-color 0.2s;
+}
+.premium-plug button:hover{border-color:white;}
+
+/* MILI STORIES */
+.mili-section{
+  padding:80px 40px;background:var(--bg);
+  border-top:1px solid var(--border);
+}
+@media(max-width:768px){.mili-section{padding:60px 24px;}}
+.mili-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:48px;flex-wrap:wrap;gap:20px;
+}
+.mili-header h2{font-size:clamp(32px,5vw,56px);font-weight:900;letter-spacing:-0.03em;}
+.mili-header p{color:var(--text3);font-style:italic;font-size:16px;margin-top:8px;}
+.mili-link{
+  font-size:12px;font-weight:700;color:var(--gold);
+  text-decoration:none;display:flex;align-items:center;gap:8px;
+  transition:gap 0.2s;
+}
+.mili-link:hover{gap:12px;}
+.mili-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+.mili-card{
+  padding:24px;border-radius:24px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  position:relative;overflow:hidden;transition:border-color 0.2s;
+}
+.mili-card::before{
+  content:'';position:absolute;top:0;right:0;
+  width:96px;height:96px;
+  background:rgba(255,209,56,0.04);border-radius:50%;
+  filter:blur(20px);transition:background 0.2s;
+}
+.mili-card:hover{border-color:rgba(255,209,56,0.2);}
+.mili-card:hover::before{background:rgba(255,209,56,0.1);}
+.mili-quote{
+  color:#d1d5db;font-style:italic;margin-bottom:20px;
+  font-size:14px;line-height:1.7;font-family:'Playfair Display',serif;
+}
+.mili-author{display:flex;align-items:center;gap:8px;}
+.mili-av{
+  width:24px;height:24px;border-radius:50%;
+  background:rgba(255,209,56,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:var(--gold);
+}
+.mili-name{font-size:13px;font-weight:700;color:var(--text2);}
+
+/* STATS */
+.stats-bar{
+  padding:64px 40px;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.01);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:80px;
+}
+.stat-item{text-align:center;}
+.stat-num{
+  font-size:56px;font-weight:900;letter-spacing:-0.03em;
+  background:linear-gradient(135deg,var(--pink),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;
+}
+.stat-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--text3);margin-top:8px;}
+
+/* FOOTER */
+footer{
+  padding:28px 40px;background:rgba(0,0,0,0.6);
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.foot-disc{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.15em;max-width:400px;}
+.foot-links{display:flex;gap:24px;}
+.foot-links button,.foot-links span{
+  font-size:9px;color:var(--text3);text-transform:uppercase;
+  letter-spacing:0.15em;background:none;border:none;cursor:pointer;
+  font-family:inherit;transition:color 0.2s;
+}
+.foot-links button:hover{color:white;}
+
+/* ══ APP SECTION ══ */
+#appSection{display:none;padding-top:64px;}
+.app-bar{
+  background:linear-gradient(90deg,rgba(124,92,191,0.15),rgba(255,209,56,0.06));
+  border-bottom:1px solid var(--border);
+  padding:10px 40px;display:flex;align-items:center;justify-content:space-between;
+}
+.app-bar-user{display:flex;align-items:center;gap:10px;}
+.app-av{
+  width:28px;height:28px;border-radius:8px;
+  background:linear-gradient(135deg,var(--pink),var(--gold));
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.app-uname{font-size:12px;font-weight:700;}
+.app-bar-r{display:flex;gap:16px;align-items:center;}
+.logout-btn{
+  font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text3);background:none;border:none;cursor:pointer;
+  font-family:inherit;transition:color 0.2s;
+}
+.logout-btn:hover{color:#f87171;}
+
+/* FEED NAV */
+.feed-tabs{
+  display:flex;gap:4px;padding:12px 40px;
+  border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;
+}
+.feed-tabs::-webkit-scrollbar{display:none;}
+.ftab{
+  padding:8px 16px;border-radius:20px;font-size:10px;font-weight:700;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--text3);cursor:pointer;white-space:nowrap;
+  background:none;border:1px solid transparent;transition:all 0.2s;font-family:inherit;
+}
+.ftab.on{background:rgba(255,255,255,0.06);color:var(--gold);border-color:var(--border);}
+
+/* FEED LAYOUT */
+.feed-wrap{max-width:640px;margin:0 auto;padding:40px 20px 80px;}
+.feed-title{font-size:36px;font-weight:900;letter-spacing:-0.03em;margin-bottom:8px;}
+.feed-title .gt{
+  background:linear-gradient(135deg,var(--pink),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-style:italic;
+}
+.feed-sub{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:40px;}
+
+/* UNLOCK BANNER */
+.unlock-bar{
+  background:linear-gradient(135deg,rgba(255,209,56,0.08),rgba(236,72,153,0.06));
+  border:1px solid rgba(255,209,56,0.2);border-radius:16px;
+  padding:16px 20px;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.ub-t{font-size:13px;color:var(--gold);font-weight:600;}
+.ub-s{font-size:11px;color:var(--text2);margin-top:3px;}
+.ub-btn{
+  background:linear-gradient(135deg,var(--gold),var(--pink));
+  border:none;color:black;padding:8px 18px;border-radius:20px;
+  font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;
+  letter-spacing:0.1em;text-transform:uppercase;
+}
+
+/* POST BOX */
+.post-trigger{
+  width:100%;padding:32px;border-radius:32px;
+  background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.1);
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  color:var(--text2);cursor:pointer;transition:all 0.2s;margin-bottom:40px;
+  font-family:inherit;
+}
+.post-trigger:hover{background:rgba(255,255,255,0.07);}
+.post-trigger-icon{
+  width:56px;height:56px;border-radius:18px;
+  background:linear-gradient(135deg,var(--pink),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;transition:transform 0.2s;
+  box-shadow:0 8px 30px rgba(236,72,153,0.2);
+}
+.post-trigger:hover .post-trigger-icon{transform:scale(1.1);}
+.post-trigger span{font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;}
+
+.post-box{
+  background:#1a1a3a;border:1px solid rgba(255,255,255,0.08);
+  border-radius:32px;padding:32px;margin-bottom:40px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);display:none;
+}
+.type-btns{display:flex;gap:8px;margin-bottom:28px;}
+.tbtn{
+  flex:1;padding:12px;border-radius:12px;font-size:10px;font-weight:900;
+  letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;
+  transition:all 0.2s;font-family:inherit;
+  background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid rgba(255,255,255,0.1);
+}
+.tbtn.wish.on{background:var(--gold);color:black;border-color:rgba(255,209,56,0.5);}
+.tbtn.khushi.on{background:var(--green);color:black;border-color:rgba(34,197,94,0.5);}
+.tbtn.dukh.on{background:var(--blue);color:white;border-color:rgba(59,130,246,0.5);}
+.post-ta{
+  width:100%;height:160px;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);border-radius:18px;
+  padding:24px;color:white;font-size:17px;font-weight:300;
+  line-height:1.6;resize:none;outline:none;font-family:inherit;
+  margin-bottom:24px;transition:border-color 0.2s;
+}
+.post-ta:focus{border-color:rgba(236,72,153,0.4);}
+.post-ta::placeholder{color:rgba(255,255,255,0.15);}
+.post-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.duration-sel{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(255,255,255,0.04);padding:8px 16px;
+  border-radius:12px;border:1px solid rgba(255,255,255,0.08);
+}
+.dur-label{font-size:10px;font-weight:900;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);border-right:1px solid rgba(255,255,255,0.1);padding-right:12px;}
+.dur-select{
+  background:transparent;color:white;border:none;outline:none;
+  font-size:10px;font-weight:700;font-family:inherit;cursor:pointer;
+  letter-spacing:0.1em;text-transform:uppercase;
+}
+.dur-select option{background:#1a1a3a;}
+.post-actions{display:flex;gap:12px;}
+.cancel-btn{
+  padding:12px 24px;border-radius:12px;background:none;border:none;
+  font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--text3);cursor:pointer;font-family:inherit;transition:color 0.2s;
+}
+.cancel-btn:hover{color:white;}
+.share-btn{
+  padding:12px 32px;border-radius:12px;
+  background:linear-gradient(135deg,var(--pink),var(--rose));
+  border:none;color:white;font-size:10px;font-weight:900;
+  letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;
+  font-family:inherit;box-shadow:0 8px 20px rgba(236,72,153,0.3);
+  transition:opacity 0.2s;
+}
+.share-btn:disabled{opacity:0.4;}
+
+/* WISH CARDS */
+.wcard{border-radius:18px;padding:24px;margin-bottom:20px;transition:all 0.2s;}
+.wcard.wish{background:#1a1528;border-left:4px solid var(--gold);}
+.wcard.khushi{background:#15281a;border-left:4px solid var(--green);}
+.wcard.dukh{background:#151a28;border-left:4px solid var(--blue);}
+.wcard.mili-glow{outline:2px solid var(--gold);outline-offset:4px;box-shadow:0 0 30px rgba(255,209,56,0.1);}
+.mili-tag{
+  position:absolute;top:0;right:32px;
+  background:var(--gold);color:black;
+  padding:4px 16px;font-size:9px;font-weight:900;
+  letter-spacing:0.2em;text-transform:uppercase;
+  border-radius:0 0 8px 8px;box-shadow:0 4px 12px rgba(255,209,56,0.3);
+}
+.wcard-inner{position:relative;}
+.wcard-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;}
+.wcard-user{display:flex;align-items:center;gap:10px;}
+.wcard-av{
+  width:32px;height:32px;border-radius:10px;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  overflow:hidden;
+}
+.wcard-av img{width:100%;height:100%;object-fit:cover;}
+.wcard-uname{font-size:11px;font-weight:700;opacity:0.6;}
+.wcard-type{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;
+  background:rgba(0,0,0,0.3);color:var(--text3);
+  border:1px solid rgba(255,255,255,0.05);margin-top:4px;
+}
+.wcard-meta{display:flex;align-items:center;gap:10px;}
+.wcard-time{
+  font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text3);background:rgba(0,0,0,0.4);
+  padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);
+  display:flex;align-items:center;gap:4px;
+}
+.wcard-time .dot{color:var(--pink);}
+.more-btn{
+  padding:4px;border-radius:6px;background:none;border:none;
+  color:var(--text3);cursor:pointer;font-size:16px;transition:all 0.2s;
+}
+.more-btn:hover{background:rgba(255,255,255,0.05);color:white;}
+.wcard-content{
+  font-size:18px;line-height:1.6;margin-bottom:28px;font-weight:400;
+}
+.wcard.dukh .wcard-content{font-style:italic;font-family:'Playfair Display',serif;opacity:0.85;}
+.wcard-actions{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);
+}
+.act-left{display:flex;gap:20px;}
+.act-btn{
+  display:flex;align-items:center;gap:8px;
+  background:none;border:none;cursor:pointer;font-family:inherit;
+  transition:all 0.2s;
+}
+.act-icon{
+  width:32px;height:32px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05);
+  font-size:14px;transition:all 0.2s;
+}
+.act-btn:hover .act-icon{border-color:rgba(255,255,255,0.1);}
+.act-btn.sparking .act-icon{
+  background:rgba(236,72,153,0.2);border-color:var(--pink);
+  box-shadow:0 0 15px rgba(236,72,153,0.2);
+}
+.act-btn.whispering .act-icon{background:rgba(255,209,56,0.15);border-color:var(--gold);}
+.act-count{font-size:10px;font-weight:900;letter-spacing:0.1em;color:white;}
+.act-label{font-size:8px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);}
+.spark-btn{
+  padding:6px 16px;border-radius:10px;
+  border:1px solid rgba(255,209,56,0.3);
+  font-size:10px;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--gold);background:transparent;cursor:pointer;font-family:inherit;
+  transition:all 0.2s;
+}
+.spark-btn:hover,.spark-btn.on{background:var(--gold);color:black;}
+
+/* WHISPER BOX */
+.whisper-box{margin-top:16px;overflow:hidden;max-height:0;transition:max-height 0.3s ease;}
+.whisper-box.open{max-height:200px;}
+.emotion-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.epill{
+  padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  background:rgba(255,255,255,0.05);color:var(--text3);
+  border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;
+}
+.epill.on{background:var(--gold);color:black;}
+.whisper-input-row{display:flex;gap:8px;}
+.w-input{
+  flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;padding:10px 16px;color:white;font-size:13px;
+  outline:none;font-family:inherit;transition:border-color 0.2s;
+}
+.w-input:focus{border-color:rgba(255,209,56,0.4);}
+.w-send{
+  width:40px;height:40px;border-radius:12px;
+  background:var(--gold);border:none;color:black;
+  cursor:pointer;font-size:18px;transition:opacity 0.2s;
+}
+.w-send:disabled{opacity:0.4;}
+
+/* MODALS */
+.mo{
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  backdrop-filter:blur(8px);z-index:500;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.mb{
+  background:#1a1a3a;border:1px solid var(--border);
+  border-radius:24px;padding:28px;width:100%;max-width:420px;
+  max-height:90vh;overflow-y:auto;
+}
+.mb h3{font-size:20px;font-weight:800;margin-bottom:6px;}
+.mb .msub{font-size:12px;color:var(--text2);margin-bottom:20px;}
+.inp{
+  width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:12px 16px;color:white;font-size:13px;
+  outline:none;margin-bottom:12px;font-family:inherit;transition:border-color 0.2s;
+}
+.inp:focus{border-color:rgba(236,72,153,0.4);}
+.mbtns{display:flex;gap:10px;margin-top:6px;}
+.mbcancel{
+  flex:1;padding:12px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.1);background:transparent;
+  color:var(--text2);cursor:pointer;font-family:inherit;font-size:13px;
+}
+.mbsubmit{
+  flex:2;padding:12px;border-radius:12px;
+  background:linear-gradient(135deg,var(--pink),var(--rose));
+  border:none;color:white;cursor:pointer;font-family:inherit;
+  font-size:13px;font-weight:700;
+}
+
+/* TNC */
+.tnc-scroll{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:16px;max-height:180px;overflow-y:auto;
+  margin-bottom:16px;
+}
+.tnc-scroll p{font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:10px;}
+.tnc-scroll .en{font-size:11px;color:var(--text3);font-style:italic;}
+.tnc-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;}
+.tnc-check input{margin-top:3px;accent-color:var(--pink);width:15px;height:15px;flex-shrink:0;}
+.tnc-check label{font-size:12px;color:var(--text2);line-height:1.5;cursor:pointer;}
+
+/* WISH FIRST */
+.wf-center{text-align:center;padding:10px 0;}
+.wf-icon{font-size:52px;margin-bottom:16px;}
+.wf-center h3{font-size:20px;font-weight:800;margin-bottom:10px;}
+.wf-center p{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:24px;}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:#1a1a3a;border:1px solid var(--border);
+  border-radius:30px;padding:10px 24px;font-size:13px;font-weight:600;
+  z-index:600;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;
+}
+.toast.show{opacity:1;}
+
+/* DROPDOWN MENU */
+.dropdown{
+  position:absolute;right:0;top:32px;
+  background:#1a1a3a;border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;padding:8px;min-width:160px;z-index:20;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);display:none;
+}
+.dropdown.open{display:block;}
+.dd-item{
+  width:100%;padding:10px 14px;border-radius:8px;
+  text-align:left;font-size:10px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  background:none;border:none;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;gap:8px;transition:background 0.2s;
+}
+.dd-item:hover{background:rgba(255,255,255,0.06);}
+.dd-mili{color:var(--gold);}
+.dd-report{color:#f87171;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:4px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">❤️</div>
+    IstaDil
+  </div>
+  <div class="nav-links" id="navLinks">
+    <button onclick="scrollTo(0,0)" class="active">Home</button>
+    <button onclick="goToFeed()">Feed</button>
+    <button onclick="document.getElementById('stories').scrollIntoView({behavior:'smooth'})">Mili Stories</button>
+  </div>
+  <button class="nav-btn" id="navAuthBtn" onclick="showMo('regMo')">Login / Register</button>
+</nav>
+
+<!-- ══ LANDING ══ -->
+<div id="landing">
+  <div class="hero-grid">
+
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div>
+        <div class="pulse-badge">
+          <div class="pulse-dot"></div>
+          <span id="pulseCount">0</span>+ Wishes Fulfilled Today
+        </div>
+
+        <h1 class="editorial-h1">
+          Dil Ki Baat,<br>
+          <span class="grad-text">IstaDil</span><br>
+          Ke Saath
+        </h1>
+
+        <p class="hero-desc">
+          Share your <em>Khushi</em>, your <em>Dukh</em>, and your most secret <em>Wishes</em>. Let the world Whisper a Dua for you.
+        </p>
+
+        <div class="hero-btns">
+          <button class="btn-main" onclick="showMo('regMo')">Post a Wish</button>
+          <button class="btn-sec" onclick="document.getElementById('stories').scrollIntoView({behavior:'smooth'})">Explore Mili</button>
+        </div>
+      </div>
+
+      <div class="featured-story">
+        <div class="featured-inner">
+          <div class="feat-icon">✨</div>
+          <div>
+            <span class="feat-label serif">Recent Mili Story</span>
+            <div class="feat-title serif">"Papa ki health ab theek hai..."</div>
+            <p class="feat-desc">His wish for recovery was met with 402 Sparks and countless Whispers. Today, he marks it as Mili.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-right">
+      <div>
+        <div class="eco-title">Emotional Ecosystem</div>
+        <div class="eco-sub">A platform built on pure Ehsaas and collective Dua.</div>
+      </div>
+
+      <div class="feat-grid">
+        <div class="feat-item">
+          <div class="feat-ico">❤️</div>
+          <div>
+            <h4>Emotional Expression</h4>
+            <p>Real feelings, real impact. No religious boundaries, just human connection.</p>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ico">✨</div>
+          <div>
+            <h4>Sparks & Whispers</h4>
+            <p>React with positive energy. Send whispers of hope and celebration.</p>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ico">🌍</div>
+          <div>
+            <h4>Global Community</h4>
+            <p>Thousands of hearts joined together in a single emotional thread.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="premium-plug">
+        <div class="plabel">Premium Access</div>
+        <p class="serif">Highlight your Wish with VIP Sparkles</p>
+        <button onclick="toast('Premium jald aa raha hai! ⭐')">Learn More</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MILI STORIES -->
+  <section id="stories" class="mili-section">
+    <div class="mili-header">
+      <div>
+        <h2>Mili Stories</h2>
+        <p class="serif">Puri hui Duayein (Fulfilled Wishes)</p>
+      </div>
+      <a href="#" class="mili-link" onclick="showMo('regMo');return false;">
+        Feed Me Aur Stories Dekhein →
+      </a>
+    </div>
+    <div class="mili-grid">
+      <div class="mili-card">
+        <p class="mili-quote serif">"Pichle 1 saal se job ki talash thi, aaj meri join ho gayi! IstaDil pe Dua ki thi aur wo kabool hui."</p>
+        <div class="mili-author">
+          <div class="mili-av">R</div>
+          <span class="mili-name">@ Rahul S.</span>
+        </div>
+      </div>
+      <div class="mili-card">
+        <p class="mili-quote serif">"Mummy ki tabiyat ab pehle se bahut behtar hai. Aap sabki Sparks aur Dua ne asar dikhaya."</p>
+        <div class="mili-author">
+          <div class="mili-av">P</div>
+          <span class="mili-name">@ Priya K.</span>
+        </div>
+      </div>
+      <div class="mili-card">
+        <p class="mili-quote serif">"Finally mere startup ko pehli funding mil gayi! Dua sach mein kaam karti hai."</p>
+        <div class="mili-author">
+          <div class="mili-av">A</div>
+          <span class="mili-name">@ Amit V.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num" id="sU">0</span>
+      <div class="stat-label">Dil Jude Hai</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="sW">0</span>
+      <div class="stat-label">Wishes / Emotions</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="sM">0</span>
+      <div class="stat-label">Mili Khushiyan</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-disc">Disclaimer: No religious affiliation. We do not guarantee wish fulfillment. यहाँ share की गई कोई भी wish के पूरे होने की कोई guarantee नहीं है।</div>
+    <div class="foot-links">
+      <button onclick="showMo('tncMo')">Terms & Conditions</button>
+      <span>Privacy</span>
+      <span>© 2026 IstaDil</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="appSection">
+  <div class="app-bar">
+    <div class="app-bar-user">
+      <div class="app-av">🌟</div>
+      <div class="app-uname" id="appUname">User</div>
+    </div>
+    <div class="app-bar-r">
+      <span id="appWishStatus" style="font-size:11px;color:#fbbf24;">⚠️ पहले Wish बनाओ</span>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="feed-tabs">
+    <button class="ftab on" onclick="setTab(this)">✨ Sab</button>
+    <button class="ftab" onclick="setTab(this)">🌟 Wishes</button>
+    <button class="ftab" onclick="setTab(this)">😊 Khushiyan</button>
+    <button class="ftab" onclick="setTab(this)">💙 Dukh</button>
+    <button class="ftab" onclick="setTab(this)">🔥 Trending</button>
+    <button class="ftab" onclick="setTab(this)">⭐ Mili</button>
+  </div>
+
+  <div class="feed-wrap">
+    <div class="feed-title"><span class="gt">The Feed</span></div>
+    <div class="feed-sub">Connecting hearts through Ehsaas</div>
+
+    <!-- UNLOCK BANNER -->
+    <div class="unlock-bar" id="unlockBar">
+      <div>
+        <div class="ub-t">🔒 React और Whisper करने के लिए पहले Wish बनाओ</div>
+        <div class="ub-s">यह एक बार करना है — फिर सब unlock हो जाएगा</div>
+      </div>
+      <button class="ub-btn" onclick="scrollToPost()">Wish बनाओ ↓</button>
+    </div>
+
+    <!-- POST TRIGGER -->
+    <button class="post-trigger" id="postTrigger" onclick="openPostBox()">
+      <div class="post-trigger-icon">＋</div>
+      <span>Dil ki baat share karein</span>
+    </button>
+
+    <!-- POST BOX -->
+    <div class="post-box" id="postBox">
+      <div class="type-btns">
+        <button class="tbtn wish on" onclick="selType(this,'wish')">Wish</button>
+        <button class="tbtn khushi" onclick="selType(this,'khushi')">Khushi</button>
+        <button class="tbtn dukh" onclick="selType(this,'dukh')">Dukh</button>
+      </div>
+      <textarea class="post-ta" id="postTa" placeholder="Apni Wish likhein..."></textarea>
+      <div class="post-footer">
+        <div class="duration-sel">
+          <span class="dur-label">Muddhat</span>
+          <select class="dur-select" id="durSel">
+            <option value="6h">6 Ghante</option>
+            <option value="24h" selected>24 Ghante</option>
+            <option value="3d">3 Din</option>
+            <option value="1w">1 Hafta</option>
+          </select>
+        </div>
+        <div class="post-actions">
+          <button class="cancel-btn" onclick="closePostBox()">Cancel</button>
+          <button class="share-btn" id="shareBtn" onclick="doPost()" disabled>Share Karein</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEED CARDS -->
+    <div id="feedCards">
+
+      <!-- CARD 1 — Wish -->
+      <div class="wcard wish wcard-inner" style="position:relative;">
+        <div class="wcard-head">
+          <div class="wcard-user">
+            <div class="wcard-av">🌸</div>
+            <div>
+              <div class="wcard-uname">@PriyaS</div>
+              <div class="wcard-type">🌟 Wish</div>
+            </div>
+          </div>
+          <div class="wcard-meta">
+            <div class="wcard-time"><span class="dot">●</span> 4h left</div>
+            <div style="position:relative;">
+              <button class="more-btn" onclick="toggleDD('dd1')">⋮</button>
+              <div class="dropdown" id="dd1">
+                <button class="dd-item dd-report" onclick="toast('🚩 Report submit ho gayi')">🚩 Report Karein</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="wcard-content">Mera aaj ka interview accha jaye. 3 mahine ki taiyaari hai, bas ek baar mauka mil jaye. 🙏</p>
+        <div class="wcard-actions">
+          <div class="act-left">
+            <button class="act-btn sparking" onclick="doSpark(this)">
+              <div class="act-icon">✨</div>
+              <div><div class="act-count">142</div><div class="act-label">Sparks</div></div>
+            </button>
+            <button class="act-btn" onclick="needWish(this)" data-wh="wh1">
+              <div class="act-icon">💬</div>
+              <div><div class="act-count">18</div><div class="act-label">Whispers</div></div>
+            </button>
+          </div>
+          <button class="spark-btn on" onclick="doSpark(this.previousElementSibling.querySelector('.act-btn'))">Spark</button>
+        </div>
+        <div class="whisper-box" id="wh1">
+          <div class="emotion-pills">
+            <button class="epill on" onclick="selEmotion(this)">Dua</button>
+            <button class="epill" onclick="selEmotion(this)">Spark</button>
+            <button class="epill" onclick="selEmotion(this)">Ehsaas</button>
+            <button class="epill" onclick="selEmotion(this)">Jashn</button>
+            <button class="epill" onclick="selEmotion(this)">Hausla</button>
+          </div>
+          <div class="whisper-input-row">
+            <input class="w-input" placeholder="Dua ke saath kuch likhein..." id="wi1">
+            <button class="w-send" onclick="sendWhisper('wi1')">➤</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 — Dukh -->
+      <div class="wcard dukh wcard-inner" style="position:relative;">
+        <div class="wcard-head">
+          <div class="wcard-user">
+            <div class="wcard-av">🌊</div>
+            <div>
+              <div class="wcard-uname">@ArjunM</div>
+              <div class="wcard-type">💙 Dukh</div>
+            </div>
+          </div>
+          <div class="wcard-meta">
+            <div class="wcard-time"><span class="dot" style="color:var(--blue)">●</span> 19h left</div>
+            <div style="position:relative;">
+              <button class="more-btn" onclick="toggleDD('dd2')">⋮</button>
+              <div class="dropdown" id="dd2">
+                <button class="dd-item dd-report" onclick="toast('🚩 Report submit ho gayi')">🚩 Report Karein</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="wcard-content">Papa ki health theek nahi hai. Bahut darr lag raha hai. Koi dua do please. 💙</p>
+        <div class="wcard-actions">
+          <div class="act-left">
+            <button class="act-btn" onclick="doSpark(this)">
+              <div class="act-icon">✨</div>
+              <div><div class="act-count">89</div><div class="act-label">Sparks</div></div>
+            </button>
+            <button class="act-btn" onclick="needWish(this)" data-wh="wh2">
+              <div class="act-icon">💬</div>
+              <div><div class="act-count">31</div><div class="act-label">Whispers</div></div>
+            </button>
+          </div>
+          <button class="spark-btn" onclick="doSpark(this.previousElementSibling.querySelector('.act-btn'))">Spark</button>
+        </div>
+        <div class="whisper-box" id="wh2">
+          <div class="emotion-pills">
+            <button class="epill on" onclick="selEmotion(this)">Dua</button>
+            <button class="epill" onclick="selEmotion(this)">Ehsaas</button>
+            <button class="epill" onclick="selEmotion(this)">Hausla</button>
+          </div>
+          <div class="whisper-input-row">
+            <input class="w-input" placeholder="Hausla ke saath kuch likhein..." id="wi2">
+            <button class="w-send" onclick="sendWhisper('wi2')">➤</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 — Mili -->
+      <div class="wcard wish mili-glow wcard-inner" style="position:relative;">
+        <div class="mili-tag">Mili</div>
+        <div class="wcard-head">
+          <div class="wcard-user">
+            <div class="wcard-av">⭐</div>
+            <div>
+              <div class="wcard-uname">@SnehaK</div>
+              <div class="wcard-type">🌟 Wish</div>
+            </div>
+          </div>
+          <div class="wcard-meta">
+            <div class="wcard-time" style="color:var(--gold);border-color:rgba(255,209,56,0.2);">⭐ Mili!</div>
+          </div>
+        </div>
+        <p class="wcard-content">UPSC Prelims clear ho jaye. 3 saal ki mehnat hai, sabki duaon ka intezaar hai. 🙏</p>
+        <div class="wcard-actions">
+          <div class="act-left">
+            <button class="act-btn sparking">
+              <div class="act-icon">✨</div>
+              <div><div class="act-count">1.2k</div><div class="act-label">Sparks</div></div>
+            </button>
+            <button class="act-btn">
+              <div class="act-icon">💬</div>
+              <div><div class="act-count">204</div><div class="act-label">Whispers</div></div>
+            </button>
+          </div>
+          <button class="spark-btn on">Spark</button>
+        </div>
+      </div>
+
+      <!-- CARD 4 — Khushi -->
+      <div class="wcard khushi wcard-inner" style="position:relative;">
+        <div class="wcard-head">
+          <div class="wcard-user">
+            <div class="wcard-av">🌿</div>
+            <div>
+              <div class="wcard-uname">@KavyaR</div>
+              <div class="wcard-type">😊 Khushi</div>
+            </div>
+          </div>
+          <div class="wcard-meta">
+            <div class="wcard-time"><span class="dot" style="color:var(--green)">●</span> 2d left</div>
+            <div style="position:relative;">
+              <button class="more-btn" onclick="toggleDD('dd4')">⋮</button>
+              <div class="dropdown" id="dd4">
+                <button class="dd-item dd-report" onclick="toast('🚩 Report submit ho gayi')">🚩 Report Karein</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="wcard-content">Aaj placement mili! 5 LPA ka offer! Maa-Papa ne bahut sacrifice kiya tha. Bahut khush hoon aaj. 🎉</p>
+        <div class="wcard-actions">
+          <div class="act-left">
+            <button class="act-btn" onclick="doSpark(this)">
+              <div class="act-icon">✨</div>
+              <div><div class="act-count">312</div><div class="act-label">Sparks</div></div>
+            </button>
+            <button class="act-btn" onclick="needWish(this)" data-wh="wh4">
+              <div class="act-icon">💬</div>
+              <div><div class="act-count">47</div><div class="act-label">Whispers</div></div>
+            </button>
+          </div>
+          <button class="spark-btn" onclick="doSpark(this.previousElementSibling.querySelector('.act-btn'))">Spark</button>
+        </div>
+        <div class="whisper-box" id="wh4">
+          <div class="emotion-pills">
+            <button class="epill on" onclick="selEmotion(this)">Jashn</button>
+            <button class="epill" onclick="selEmotion(this)">Spark</button>
+            <button class="epill" onclick="selEmotion(this)">Ehsaas</button>
+          </div>
+          <div class="whisper-input-row">
+            <input class="w-input" placeholder="Jashn ke saath kuch likhein..." id="wi4">
+            <button class="w-send" onclick="sendWhisper('wi4')">➤</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<!-- LOGIN -->
+<div class="mo" id="loginMo" style="display:none;">
+  <div class="mb">
+    <h3>🌟 Wapas aao IstaDil par</h3>
+    <div class="msub">Apni wishes, sparks aur whispers dekho</div>
+    <input class="inp" type="email" placeholder="Email">
+    <input class="inp" type="password" placeholder="Password">
+    <div class="mbtns">
+      <button class="mbcancel" onclick="closeMo('loginMo')">Cancel</button>
+      <button class="mbsubmit" onclick="showTnC('login')">Login ✨</button>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div class="mo" id="regMo" style="display:none;">
+  <div class="mb">
+    <h3>⭐ IstaDil se judo</h3>
+    <div class="msub">Dil ki baat kaho, strangers ki duaen pao</div>
+    <input class="inp" type="text" id="regName" placeholder="Aapka naam">
+    <input class="inp" type="email" placeholder="Email">
+    <input class="inp" type="password" placeholder="Password banao">
+    <div class="mbtns">
+      <button class="mbcancel" onclick="closeMo('regMo')">Cancel</button>
+      <button class="mbsubmit" onclick="showTnC('reg')">Join karo ✨</button>
+    </div>
+  </div>
+</div>
+
+<!-- T&C -->
+<div class="mo" id="tncMo" style="display:none;">
+  <div class="mb">
+    <h3>📋 Terms & Conditions</h3>
+    <div class="msub">IstaDil use karne se pehle padhein</div>
+    <div class="tnc-scroll">
+      <p><strong>1. Platform ki Prakriti:</strong> IstaDil ek community-based social platform hai jahan users apni wishes, khushiyan aur dukh share kar sakte hain.</p>
+      <p><strong>2. Koi Guarantee Nahin:</strong> IstaDil par share ki gayi kisi bhi wish ke poore hone ya na hone ki koi guarantee nahi hai. Yeh platform kisi bhi supernatural claim ko support nahi karta.</p>
+      <p><strong>3. Vastvikata se Koi Lena-Dena Nahin:</strong> Yahan share ki gayi samagri ki vastvikata se IstaDil ki koi zimmedari nahi hai.</p>
+      <p><strong>4. Dharm-Nirpeksh:</strong> IstaDil kisi bhi dharm, sanstha ya organization se juda nahi hai.</p>
+      <p><strong>5. Community Guidelines:</strong> Spam, hate speech, ya inappropriate content pratibandhit hai.</p>
+      <p class="en">IstaDil is a social platform. Nothing shared here constitutes a guarantee or supernatural claim. IstaDil bears no responsibility for user-generated content and has no religious affiliation.</p>
+    </div>
+    <div class="tnc-check">
+      <input type="checkbox" id="tncCb" onchange="toggleTnc()">
+      <label for="tncCb">Maine sabhi Terms padh li hain aur main sahmat hoon.<br><span style="font-size:11px;color:var(--text3)">I have read and agree to all Terms & Conditions.</span></label>
+    </div>
+    <div class="mbtns">
+      <button class="mbcancel" onclick="closeMo('tncMo')">Cancel</button>
+      <button class="mbsubmit" id="tncSubmit" style="opacity:0.4;" onclick="doAgree()">Agree & Continue ✨</button>
+    </div>
+  </div>
+</div>
+
+<!-- WISH FIRST -->
+<div class="mo" id="wfMo" style="display:none;">
+  <div class="mb">
+    <div class="wf-center">
+      <div class="wf-icon">🔒✨</div>
+      <h3>Pehle apni Wish banao!</h3>
+      <p>React karne aur Whisper bhejne ke liye pehle apni ek Wish, Khushi ya Dukh share karo.<br><br>Yeh IstaDil ka niyam hai — pehle do, phir pao. 💛</p>
+      <button class="mbsubmit" style="width:100%;padding:14px;" onclick="closeMo('wfMo');scrollToPost()">Wish banao ✨</button>
+      <button class="mbcancel" style="width:100%;padding:12px;margin-top:10px;" onclick="closeMo('wfMo')">Baad mein</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script>
+var loggedIn=false, wishMade=false, tncFor='', currentType='wish';
+
+// Stats animation
+function animNum(id,target){
+  var el=document.getElementById(id),n=0,step=target/60;
+  var t=setInterval(function(){
+    n+=step;if(n>=target){n=target;clearInterval(t);}
+    el.textContent=Math.floor(n).toLocaleString('en-IN')+'+';
+  },30);
+}
+window.addEventListener('load',function(){
+  animNum('sU',12847);animNum('sW',38291);animNum('sM',4203);
+  var p=document.getElementById('pulseCount');
+  var n=0,t=setInterval(function(){n+=17;if(n>=1403){n=1403;clearInterval(t);}p.textContent=n;},20);
+});
+
+// Modals
+function showMo(id){document.getElementById(id).style.display='flex';}
+function closeMo(id){document.getElementById(id).style.display='none';}
+function goToFeed(){if(loggedIn){document.getElementById('landing').style.display='none';document.getElementById('appSection').style.display='block';window.scrollTo(0,0);}else{showMo('regMo');}}
+
+function showTnC(type){
+  tncFor=type;
+  closeMo(type==='login'?'loginMo':'regMo');
+  document.getElementById('tncCb').checked=false;
+  document.getElementById('tncSubmit').style.opacity='0.4';
+  showMo('tncMo');
+}
+function toggleTnc(){
+  document.getElementById('tncSubmit').style.opacity=document.getElementById('tncCb').checked?'1':'0.4';
+}
+function doAgree(){
+  if(!document.getElementById('tncCb').checked){toast('⚠️ Pehle Terms agree karo');return;}
+  closeMo('tncMo');
+  var name=tncFor==='reg'?(document.getElementById('regName').value||'Naya User'):'Priya S.';
+  setLoggedIn(name);
+}
+
+function setLoggedIn(name){
+  loggedIn=true;
+  document.getElementById('landing').style.display='none';
+  document.getElementById('appSection').style.display='block';
+  document.getElementById('appUname').textContent=name+' 👋';
+  document.getElementById('navAuthBtn').textContent='Feed →';
+  document.getElementById('navAuthBtn').onclick=goToFeed;
+  window.scrollTo(0,0);
+  toast('🎉 IstaDil mein swagat hai, '+name+'!');
+}
+
+function doLogout(){
+  loggedIn=false;wishMade=false;
+  document.getElementById('landing').style.display='block';
+  document.getElementById('appSection').style.display='none';
+  document.getElementById('navAuthBtn').textContent='Login / Register';
+  document.getElementById('navAuthBtn').onclick=function(){showMo('regMo');};
+  closePostBox();
+  toast('Logout ho gaye');window.scrollTo(0,0);
+}
+
+// Feed tabs
+function setTab(el){document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
+
+// Post box
+function openPostBox(){document.getElementById('postTrigger').style.display='none';document.getElementById('postBox').style.display='block';}
+function closePostBox(){document.getElementById('postTrigger').style.display='flex';document.getElementById('postBox').style.display='none';}
+function scrollToPost(){document.getElementById('postTrigger').scrollIntoView({behavior:'smooth',block:'center'});}
+
+function selType(el,type){
+  currentType=type;
+  document.querySelectorAll('.tbtn').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  var ph={wish:'Apni Wish likhein...',khushi:'Khushi share karein...',dukh:'Dukh baantein...'};
+  document.getElementById('postTa').placeholder=ph[type];
+}
+
+// Textarea enable submit
+document.addEventListener('DOMContentLoaded',function(){
+  var ta=document.getElementById('postTa');
+  if(ta)ta.addEventListener('input',function(){
+    document.getElementById('shareBtn').disabled=!ta.value.trim();
+  });
+});
+
+function doPost(){
+  var ta=document.getElementById('postTa');
+  if(!ta.value.trim()){toast('⚠️ Kuch likho pehle!');return;}
+  wishMade=true;
+  ta.value='';
+  document.getElementById('shareBtn').disabled=true;
+  closePostBox();
+  // Unlock all
+  document.getElementById('unlockBar').style.display='none';
+  document.getElementById('appWishStatus').textContent='✅ Sab Unlock!';
+  document.getElementById('appWishStatus').style.color='#4ade80';
+  toast('✨ Share ho gayi! Ab sab unlock hai! 🎉');
+}
+
+// Spark
+function doSpark(btn){
+  if(!btn)return;
+  var cnt=btn.querySelector('.act-count');
+  var n=parseInt(cnt.textContent.replace(/[^0-9]/g,''))||0;
+  if(btn.classList.contains('sparking')){
+    btn.classList.remove('sparking');cnt.textContent=n-1;toast('Spark wapas liya');
+  }else{
+    btn.classList.add('sparking');cnt.textContent=n+1;toast('✨ Spark diya!');
+  }
+}
+
+// Whisper
+function needWish(btn){
+  if(!wishMade){showMo('wfMo');return;}
+  var whId=btn.getAttribute('data-wh');
+  var box=document.getElementById(whId);
+  if(box)box.classList.toggle('open');
+  btn.classList.toggle('whispering');
+}
+
+function selEmotion(el){
+  var pills=el.closest('.emotion-pills').querySelectorAll('.epill');
+  pills.forEach(p=>p.classList.remove('on'));el.classList.add('on');
+}
+function sendWhisper(inputId){
+  var inp=document.getElementById(inputId);
+  if(!inp.value.trim()){toast('⚠️ Kuch likho whisper mein');return;}
+  toast('💬 Whisper bheja gaya!');inp.value='';
+}
+
+// Dropdown
+function toggleDD(id){
+  document.querySelectorAll('.dropdown').forEach(d=>{if(d.id!==id)d.classList.remove('open');});
+  document.getElementById(id).classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.classList.contains('more-btn'))document.querySelectorAll('.dropdown').forEach(d=>d.classList.remove('open'));
+});
+
+// Toast
+function toast(msg){
+  var t=document.getElementById('toastEl');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// Close modal on overlay
+document.querySelectorAll('.mo').forEach(m=>{
+  m.addEventListener('click',function(e){if(e.target===m)m.style.display='none';});
+});
+</script>
+</body>
+</html>
